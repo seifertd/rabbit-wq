@@ -18,6 +18,8 @@ module RabbitWQ
         work_log_path
         work_publish_queue
         work_subscribe_queue
+        worker_require
+        libdir
       )
     end
 
