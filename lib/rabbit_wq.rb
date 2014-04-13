@@ -19,6 +19,7 @@ module RabbitWQ
   autoload :Work,           'rabbit_wq/work'
   autoload :Worker,         'rabbit_wq/worker'
   autoload :WorkLogger,     'rabbit_wq/work_logger'
+  autoload :HandlerContext, 'rabbit_wq/handler_context'
 
   def self.configuration
     @configuration ||= Configuration.new
@@ -26,6 +27,14 @@ module RabbitWQ
 
   def self.configuration=( configuration )
     @configuration = configuration
+  end
+
+  def self.handler_context
+    @handler_context
+  end
+
+  def self.handler_context=(handler_context)
+    @handler_context = handler_context
   end
 
   def self.configure

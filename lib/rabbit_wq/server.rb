@@ -7,6 +7,7 @@ module RabbitWQ
     include Logging
     include Queues
     include ServerLogging
+    include HandlerContext
 
     attr_reader :options,
                 :work_consumer,
@@ -87,6 +88,7 @@ module RabbitWQ
       load_configuration
       initialize_loggers
       load_environment
+      initialize_handler_context(config.handler_context)
       resolve_threads
     end
 
@@ -104,7 +106,7 @@ module RabbitWQ
       end
 
       ENV['RAILS_ENV'] = ENV['RACK_ENV'] = config.env
-      require environment_file_path
+      require_relative environment_file_path
     end
 
     def resolve_threads

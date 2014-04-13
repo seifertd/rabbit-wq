@@ -18,8 +18,6 @@ module RabbitWQ
       metadata      = options[:metadata]
       payload       = options[:payload]
 
-      load_dependencies
-
       worker = YAML::load( payload )
       info ANSI.yellow { "WORKER [#{worker.object_id}] " + worker.inspect }
       handle_work( worker, payload )
@@ -30,17 +28,6 @@ module RabbitWQ
     end
 
   protected
-
-    def load_dependencies
-      unless @deps_loaded
-        if RabbitWQ.configuration.worker_require && RabbitWQ.configuration.libdir
-          debug "calling require: #{RabbitWQ.configuration.worker_require} with libdir #{RabbitWQ.configuration.libdir}"
-          $:.unshift RabbitWQ.configuration.libdir if !$:.include? RabbitWQ.configuration.libdir
-          require RabbitWQ.configuration.worker_require
-        end
-        @deps_loaded = true
-      end
-    end
 
     def handle_work( worker, payload )
       unless worker.enabled?

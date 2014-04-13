@@ -18,8 +18,7 @@ module RabbitWQ
         work_log_path
         work_publish_queue
         work_subscribe_queue
-        worker_require
-        libdir
+        handler_context
       )
     end
 
@@ -78,6 +77,10 @@ module RabbitWQ
 
     def work_subscribe_queue
       @work_subscribe_queue || 'work'
+    end
+
+    def handler_context
+      @handler_context ||= {}
     end
 
   end
